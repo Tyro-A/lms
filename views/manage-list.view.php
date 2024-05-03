@@ -51,12 +51,12 @@
                         ?>
 
                                     <tr>
-                                        <th><?php echo $sn++; ?> </th>
-                                        <td><?php echo $list_name; ?></td>
-                                        <td><?php echo $list_description; ?></td>
+                                        <th><?= $sn++; ?> </th>
+                                        <td><?= $list_name; ?></td>
+                                        <td><?= $list_description; ?></td>
                                         <td>
-                                            <a href="<?php echo SITEURL; ?>update-list.php?list_id=<?php echo $list_id; ?>"><button class="btn btn-success btn-sm">Update</button></a>
-                                            <a href="<?php echo SITEURL; ?>delete-list.php?list_id=<?php echo $list_id; ?>"><button class="btn btn-danger btn-sm">Delete</button></a>
+                                            <a href="<?= SITEURL; ?>update-list.php?list_id=<?= $list_id; ?>"><button class="btn btn-primary btn-sm">Update</button></a>
+                                            <a href="<?= SITEURL; ?>delete-list.php?list_id=<?= $list_id; ?>"><button class="btn btn-danger btn-sm">Delete</button></a>
                                         </td>
                                     </tr>
 
@@ -79,7 +79,7 @@
 
 
                     </table>
-                    <a href="<?php echo SITEURL; ?>add-list.php"> <button class="btn btn-dark">Add List</button></a>
+                    <a href="<?= SITEURL; ?>add-list.php"> <button class="btn btn-dark">Add List</button></a>
                 </div>
             </div>
         </div>

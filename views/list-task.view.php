@@ -43,16 +43,16 @@
                         ?>
 
                                     <tr>
-                                        <th scope="row"><?php echo $sn; ?></th>
-                                        <td><?php echo $task_name; ?></td>
-                                        <td><?php echo $priority; ?></td>
-                                        <td><?php echo $deadline; ?></td>
+                                        <th scope="row"><?= $sn; ?></th>
+                                        <td><?= $task_name; ?></td>
+                                        <td><?= $priority; ?></td>
+                                        <td><?= $deadline; ?></td>
                                         <td>
-                                            <a href="<?php echo SITEURL; ?>update-task.php?task_id=<?php echo $task_id; ?>" style="text-decoration:none;">
-                                                <div class="btn btn-success btn-sm">Update</div>
+                                            <a href="<?= SITEURL; ?>update-task.php?task_id=<?= $task_id; ?>" style="text-decoration:none;">
+                                                <div class="btn btn-primary btn-sm">Update</div>
                                             </a>
 
-                                            <a href="<?php echo SITEURL; ?>delete-task.php?task_id=<?php echo $task_id; ?>" style="text-decoration:none;">
+                                            <a href="<?= SITEURL; ?>delete-task.php?task_id=<?= $task_id; ?>" style="text-decoration:none;">
                                                 <div class="btn btn-danger btn-sm">Delete</div>
                                             </a>
                                         </td>
@@ -76,7 +76,7 @@
 
 
                     </table>
-                    <a href="<?php echo SITEURL; ?>add-task.php"><button class="btn btn-dark">Add Task</button></a>
+                    <a href="<?= SITEURL; ?>add-task.php"><button class="btn btn-dark">Add Task</button></a>
                 </div>
             </div>
         </div>
