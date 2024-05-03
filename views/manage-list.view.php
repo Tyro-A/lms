@@ -1,7 +1,4 @@
 <div class="all-lists">
-
-    
-
     <div class="all-task">
         <div class="container">
             <div class="row justify-content-center mt-5">
