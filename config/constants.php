@@ -1,8 +1,10 @@
 <?php 
 //Start Session
+require_once("functions.php");
 session_start();
 
 //Create Constants to save Database Credentials
+define("APP_PATH", dirname(__FILE__) . "\\..\\");
 define('LOCALHOST', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
