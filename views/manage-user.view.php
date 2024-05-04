@@ -1,7 +1,4 @@
 <div class="all-lists">
-
-    
-
     <div class="all-task">
         <div class="container">
             <div class="row justify-content-center mt-5">
@@ -10,8 +7,9 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <th>S.N.</th>
-                            <th>List Name</th>
-                            <th>List Description</th>
+                            <th>Name</th>
+                            <th>User Name</th>
+                            <th>User Type</th>
                             <th >Actions</th>
                         </thead>
                         <?php
@@ -21,9 +19,9 @@
 
                         //Select Database
                         $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_error());
-
+                        
                         //SQl Query to display all data fromo database
-                        $sql = "SELECT * FROM tbl_lists";
+                        $sql = "SELECT * FROM users";
 
                         //Execute the Query
                         $res = mysqli_query($conn, $sql);
@@ -45,18 +43,20 @@
 
                                 while ($row = mysqli_fetch_assoc($res)) {
                                     //Getting the data from database
-                                    $list_id = $row['list_id'];
-                                    $list_name = $row['list_name'];
-                                    $list_description = $row['list_description'];
+                                    $id = $row['id'];
+                                    $name = $row['name'];
+                                    $username = $row['username'];
+                                    $role = $row['role'];
                         ?>
 
                                     <tr>
                                         <th><?= $sn++; ?> </th>
-                                        <td><?= $list_name; ?></td>
-                                        <td><?= $list_description; ?></td>
+                                        <td><?= $name; ?></td>
+                                        <td><?= $username; ?></td>
+                                        <td><?= ($role == 1) ? 'Admin' : 'Staff'; ?></td>
                                         <td>
-                                            <a href="<?= SITEURL; ?>update-list.php?list_id=<?= $list_id; ?>"><button class="btn btn-primary btn-sm">Update</button></a>
-                                            <a href="<?= SITEURL; ?>delete-list.php?list_id=<?= $list_id; ?>"><button class="btn btn-danger btn-sm">Delete</button></a>
+                                            <a href="<?= SITEURL; ?>update-user.php?id=<?= $id; ?>"><button class="btn btn-primary btn-sm">Update</button></a>
+                                            <a href="<?= SITEURL; ?>delete-user.php?id=<?= $id; ?>"><button class="btn btn-danger btn-sm">Delete</button></a>
                                         </td>
                                     </tr>
 
@@ -79,7 +79,7 @@
 
 
                     </table>
-                    <a href="<?= SITEURL; ?>add-list.php"> <button class="btn btn-dark">Add List</button></a>
+                    <a href="<?= SITEURL; ?>add-user.php"> <button class="btn btn-dark">Add User</button></a>
                 </div>
             </div>
         </div>

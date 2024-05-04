@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page
+    header("Location: login.php");
+    die();
+}
+if(isset($_GET['logout'])) {
+    // Destroy the session
+    session_destroy();
+    // Redirect to the login page
+    header("Location: login.php");
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,6 +65,7 @@
         }
 
         .dropdown-menu a:hover {
+            color: black;
             background-color: #f1f1f1;
         }
     </style>
@@ -90,18 +108,24 @@
                     <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/manage-list.php') ? 'active' : ''; ?>">
                         <a class="nav-link" href="manage-list.php">Manage list</a>
                     </li>
+                    <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/manage-user.php') ? 'active' : ''; ?>">
+                        <a class="nav-link" href="manage-user.php">Manage Users</a>
+                    </li>
                 </ul>
                 <div class="dropdown ">
                     <div class="user-avatar">JD</div> <!-- Replace "JD" with user's initials -->
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="?logout">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-    <?php require_once("$name.view.php"); ?>
+    <div class="mb-5 pb-3">
+        <?php require_once("$name.view.php"); ?>
+    </div>
+    
 
     <footer class="fixed-bottom p-3 bg-dark-subtle">
         <span class="text-muted">&copy; 2024 MN-Soft. All rights reserved.</span>
