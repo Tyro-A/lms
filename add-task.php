@@ -1,7 +1,6 @@
 <?php
 include('config/constants.php');
 if (isset($_POST['submit'])) {
-    //echo "Button Clicked";
     //Get all the Values from Form
     $task_name = $_POST['task_name'];
     $task_description = $_POST['task_description'];
@@ -9,11 +8,8 @@ if (isset($_POST['submit'])) {
     $priority = $_POST['priority'];
     $deadline = $_POST['deadline'];
 
-    //Connect Database
-    $conn2 = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_error());
-
     //SElect Database
-    $db_select2 = mysqli_select_db($conn2, DB_NAME) or die(mysqli_error());
+    
 
     //CReate SQL Query to INSERT DATA into DAtabase
     $sql2 = "INSERT INTO tbl_tasks SET 
@@ -25,7 +21,7 @@ if (isset($_POST['submit'])) {
         ";
 
     //Execute Query
-    $res2 = mysqli_query($conn2, $sql2);
+    $res2 = mysqli_query($conn, $sql2);
 
     //Check whetehre the query executed successfully or not
     if ($res2 == true) {

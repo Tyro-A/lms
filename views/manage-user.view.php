@@ -1,3 +1,5 @@
+
+
 <div class="all-lists">
     <div class="all-task">
         <div class="container">
@@ -19,9 +21,9 @@
 
                         //Select Database
                         $db_select = mysqli_select_db($conn, DB_NAME) or die(mysqli_error());
-                        
+                        $loggedin_username = $_SESSION['username'];
                         //SQl Query to display all data fromo database
-                        $sql = "SELECT * FROM users";
+                        $sql = "SELECT * FROM users where username != '$loggedin_username'";
 
                         //Execute the Query
                         $res = mysqli_query($conn, $sql);

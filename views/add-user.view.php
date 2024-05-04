@@ -4,16 +4,6 @@
 
         <div class="row justify-content-center ">
             <div class="col-10">
-                <p>
-                    <?php
-
-                    if (isset($_SESSION['add_fail'])) {
-                        echo $_SESSION['add_fail'];
-                        unset($_SESSION['add_fail']);
-                    }
-                    ?>
-                </p>
-
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
