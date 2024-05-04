@@ -1,18 +1,14 @@
 <?php
-include('config/constants.php');
+include('config/app.php');
 if (isset($_POST['submit'])) {
-    //Get all the Values from Form
+
     $task_name = $_POST['task_name'];
     $task_description = $_POST['task_description'];
     $list_id = $_POST['list_id'];
     $priority = $_POST['priority'];
     $deadline = $_POST['deadline'];
 
-    //SElect Database
-    
-
-    //CReate SQL Query to INSERT DATA into DAtabase
-    $sql2 = "INSERT INTO tbl_tasks SET 
+    $sql = "INSERT INTO tbl_tasks SET 
             task_name = '$task_name',
             task_description = '$task_description',
             list_id = $list_id,
@@ -20,24 +16,28 @@ if (isset($_POST['submit'])) {
             deadline = '$deadline'
         ";
 
-    //Execute Query
-    $res2 = mysqli_query($conn, $sql2);
+    $res = mysqli_query($conn, $sql);
 
-    //Check whetehre the query executed successfully or not
-    if ($res2 == true) {
-        //Query Executed and Task Inserted Successfully
+    if ($res) {
+
         $_SESSION['add'] = "Task Added Successfully.";
 
-        //Redirect to Homepage
         header('location:' . SITEURL);
     } else {
-        //FAiled to Add TAsk
+
         $_SESSION['add_fail'] = "Failed to Add Task";
-        //Redirect to Add TAsk Page
+
         header('location:' . SITEURL . 'add-task.php');
     }
 }
-view("add-task");
+
+$sql = "SELECT * FROM tbl_lists";
+$res = mysqli_query($conn, $sql);
+if ($res) {
+    $count_rows = mysqli_num_rows($res);
+    if ($count_rows > 0) {
+        $row = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    }
+}
+view("add-task", $row);
 ?>
-
-

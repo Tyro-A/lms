@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../task-manager/config/constants.php";
+require_once "config/app.php";
 
 // Check if user is already logged in, redirect to index.php if true
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){

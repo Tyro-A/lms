@@ -1,20 +1,9 @@
 <?php
-session_start();
-
-// Check if the user is logged in
-if (!isset($_SESSION['username'])) {
-    // Redirect to the login page
-    header("Location: login.php");
-    die();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Start the session
 }
-if(isset($_GET['logout'])) {
-    // Destroy the session
-    session_destroy();
-    // Redirect to the login page
-    header("Location: login.php");
-    die();
-}
-
+require_once("config/app.php");
+is_session();
 ?>
 <!DOCTYPE html>
 <html lang="en">

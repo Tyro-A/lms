@@ -1,6 +1,6 @@
 <?php 
         //Include constants.php
-    include('config/constants.php');
+    include('config/app.php');
     //echo "Delete List Page";
     
     //Check whether the list_id is assigned or not

@@ -1,32 +1,17 @@
 <?php
 
-include('config/constants.php');
-view("manage-list");
-if (isset($_SESSION['add'])) {
-    //display message
-    echo $_SESSION['add'];
-    //REmove the message after displaying one time
-    unset($_SESSION['add']);
+include('config/app.php');
+$sql = "SELECT * FROM tbl_lists";
+$res = mysqli_query($conn, $sql);
+if($res) {
+    $count_rows = mysqli_num_rows($res);
+    if($count_rows > 0) {
+        $row = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    }
 }
 
-//Check the session for Delete
+view("manage-list", $row);
 
-if (isset($_SESSION['delete'])) {
-    echo $_SESSION['delete'];
-    unset($_SESSION['delete']);
-}
-
-//Check Session Message for Update
-if (isset($_SESSION['update'])) {
-    echo $_SESSION['update'];
-    unset($_SESSION['update']);
-}
-
-//Check for Delete Fail
-if (isset($_SESSION['delete_fail'])) {
-    echo $_SESSION['delete_fail'];
-    unset($_SESSION['delete_fail']);
-}
-
+  
 ?>
 

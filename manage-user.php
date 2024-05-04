@@ -1,32 +1,27 @@
 <?php
 
-include('config/constants.php');
-view("manage-user");
-if (isset($_SESSION['add'])) {
-    //display message
-    echo $_SESSION['add'];
-    //REmove the message after displaying one time
-    unset($_SESSION['add']);
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Start the session
 }
+include('config/app.php');
 
-//Check the session for Delete
+if(isset($_SESSION['username'])) { 
+    $loggedin_username = $_SESSION['username'];
 
-if (isset($_SESSION['delete'])) {
-    echo $_SESSION['delete'];
-    unset($_SESSION['delete']);
+    $sql = "SELECT * FROM users where username != '$loggedin_username'";
+    $res = mysqli_query($conn, $sql);
+    
+    $row = [];
+    if ($res) {
+        $count_rows = mysqli_num_rows($res);
+        
+        if ($count_rows > 0) {
+            $row = mysqli_fetch_all($res, MYSQLI_ASSOC);
+        }
+    }
+    
+    view("manage-user", $row);
+} else {
+    // Handle the case when $_SESSION['username'] is not set
 }
-
-//Check Session Message for Update
-if (isset($_SESSION['update'])) {
-    echo $_SESSION['update'];
-    unset($_SESSION['update']);
-}
-
-//Check for Delete Fail
-if (isset($_SESSION['delete_fail'])) {
-    echo $_SESSION['delete_fail'];
-    unset($_SESSION['delete_fail']);
-}
-
 ?>
-

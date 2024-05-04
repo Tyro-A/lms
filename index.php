@@ -1,24 +1,13 @@
 <?php
-include('config/constants.php');
-view("index");
-if (isset($_SESSION['add'])) {
-    echo $_SESSION['add'];
-    unset($_SESSION['add']);
-}
+include('config/app.php');
+$sql = "SELECT * FROM tbl_tasks";
+$res = mysqli_query($conn, $sql);
+if ($res) {
 
-if (isset($_SESSION['delete'])) {
-    echo $_SESSION['delete'];
-    unset($_SESSION['delete']);
+    $count_rows = mysqli_num_rows($res);
+    
+    if ($count_rows > 0) {
+        $row = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    }
 }
-
-if (isset($_SESSION['update'])) {
-    echo $_SESSION['update'];
-    unset($_SESSION['update']);
-}
-
-
-if (isset($_SESSION['delete_fail'])) {
-    echo $_SESSION['delete_fail'];
-    unset($_SESSION['delete_fail']);
-}
-?>
+view("index", $row);
