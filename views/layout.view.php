@@ -3,6 +3,16 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start(); // Start the session
 }
 require_once("config/app.php");
+$conn = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+$sql = "SELECT * FROM tbl_lists";
+$res = mysqli_query($conn, $sql);
+$res = mysqli_query($conn, $sql);
+if ($res) {
+    $count_rows = mysqli_num_rows($res);
+    if ($count_rows > 0) {
+        $row = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    }
+}
 is_session();
 ?>
 <!DOCTYPE html>
@@ -19,7 +29,8 @@ is_session();
     <style>
         /* Style for the user avatar */
         .user-avatar {
-            position: relative; /* Added */
+            position: relative;
+            /* Added */
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -35,11 +46,13 @@ is_session();
         .dropdown-menu {
             display: none;
             position: absolute;
-            top: calc(70% + 5px); /* Changed */
-            left: -70px; /* Changed */
+            top: calc(70% + 5px);
+            /* Changed */
+            left: -70px;
+            /* Changed */
             background-color: #fff;
             min-width: 120px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
@@ -74,36 +87,22 @@ is_session();
                     <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/index.php') ? 'active' : ''; ?>">
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
                     </li>
-                    <?php
-
-                    // Your database connection and query
-                    $conn2 = mysqli_connect(LOCALHOST, DB_USERNAME, DB_PASSWORD) or die(mysqli_error());
-                    $db_select2 = mysqli_select_db($conn2, DB_NAME) or die(mysqli_error());
-                    $sql2 = "SELECT * FROM tbl_lists";
-                    $res2 = mysqli_query($conn2, $sql2); // Assigning a value to $res2
-
-                    if ($res2) { // Check if $res2 is valid
-                        while ($row2 = mysqli_fetch_assoc($res2)) {
-                            $list_id = $row2['list_id'];
-                            $list_name = $row2['list_name'];
-                            $active_class = ($_SERVER['PHP_SELF'] == "/list-task.php?list_id=$list_id") ? 'active' : '';
-                    ?>
-                            <li class="nav-item <?= $active_class; ?>">
-                                <a class="nav-link" href="<?= SITEURL; ?>list-task.php?list_id=<?= $list_id; ?>"><?= $list_name; ?></a>
-                            </li>
-                    <?php
-                        }
-                    }
-                    ?>
-                    <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/manage-list.php') ? 'active' : ''; ?>">
-                        <a class="nav-link" href="manage-list.php">Manage list</a>
+                    <?php foreach($row as $list) : ?>
+                    <li class="nav-item <?= $active_class; ?>">
+                        <a class="nav-link" href="<?= SITEURL; ?>list-task.php?list_id=<?= $list['list_id']; ?>"><?= $list['list_name']; ?></a>
                     </li>
-                    <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/manage-user.php') ? 'active' : ''; ?>">
-                        <a class="nav-link" href="manage-user.php">Manage Users</a>
-                    </li>
+                    <?php endforeach?>
+                    <?php if ($_SESSION['role'] == 1) : ?>
+                        <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/manage-list.php') ? 'active' : ''; ?>">
+                            <a class="nav-link" href="manage-list.php">Manage list</a>
+                        </li>
+                        <li class="nav-item <?= ($_SERVER['PHP_SELF'] == '/manage-user.php') ? 'active' : ''; ?>">
+                            <a class="nav-link" href="manage-user.php">Manage Users</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <div class="dropdown ">
-                    <div class="user-avatar">JD</div> <!-- Replace "JD" with user's initials -->
+                    <div class="user-avatar">JD</div>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="?logout">Logout</a>
@@ -115,7 +114,7 @@ is_session();
     <div class="mb-5 pb-3">
         <?php require_once("$name.view.php"); ?>
     </div>
-    
+
 
     <footer class="fixed-bottom p-3 bg-dark-subtle">
         <span class="text-muted">&copy; 2024 MN-Soft. All rights reserved.</span>
